@@ -80,11 +80,11 @@ void time_to_greeting(int hour, char* greeting)
 {
   int pos;
 
-  if (hour < 5 || hour >= 22) {
+  if (hour < 6) {
     pos = 3; // night greeting
-  } else if (hour < 11) {
+  } else if (hour < 12) {
     pos = 0; // morning greeting
-  } else if (hour < 17) {
+  } else if (hour < 18) {
     pos = 1; // day greeting
   } else {
     pos = 2; // evening greeting

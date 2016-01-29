@@ -365,12 +365,14 @@ void set_offset(int offset) {
 }
 
 void inbox_received_handler(DictionaryIterator *iter, void *context) {
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "Received inbox message");
 
   // Language
   Tuple *language_t = dict_find(iter, KEY_LANGUAGE);
   if (language_t) {
   	set_language(language_t->value->uint8);
   	persist_write_int(KEY_LANGUAGE, language_t->value->uint8);
+  	APP_LOG(APP_LOG_LEVEL_DEBUG, "Language is %d", language_t->value->uint8);
   }
 
   // Time offset
@@ -390,6 +392,7 @@ void inbox_received_handler(DictionaryIterator *iter, void *context) {
   	bg_color.argb = background_color_t->value->uint8;
   	window_set_background_color(window, bg_color);
   	persist_write_int(KEY_BACKGROUND, bg_color.argb);	
+  	APP_LOG(APP_LOG_LEVEL_DEBUG, "Offset is %d", background_color_t->value->uint8);
   }
 
   // Regular text color
@@ -410,6 +413,7 @@ void inbox_received_handler(DictionaryIterator *iter, void *context) {
   // Inverse colors
   Tuple *color_inverse_t = dict_find(iter, KEY_INVERSE);
   if(color_inverse_t) {
+  	APP_LOG(APP_LOG_LEVEL_DEBUG, "Inverse colors is %d", color_inverse_t->value->int8);
   	if (color_inverse_t->value->int8 > 0) {  // Read boolean as an integer
 	    // Set inverse colors
 	    window_set_background_color(window, GColorWhite);
@@ -508,6 +512,7 @@ void handle_init() {
 	char greeting[32];
 	time_to_greeting(get_localtime()->tm_hour, greeting);
 #if DEBUG == 1
+	time_to_greeting(get_localtime()->tm_sec * 24 / 60, greeting);
 	strcat(greeting, " Debug ");
 #endif
 	display_message(greeting, MESSAGE_DISPLAY_TIME);

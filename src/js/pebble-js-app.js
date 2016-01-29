@@ -50,8 +50,8 @@ Pebble.addEventListener('webviewclosed', function(e) {
   // Send to watchapp
   Pebble.sendAppMessage(dict, function() {
     console.log('Send successful: ' + JSON.stringify(dict));
-  }, function() {
-    console.log('Send failed!');
+  }, function(e) {
+    console.log('Send failed! ' + JSON.stringify(e) + ', ' + JSON.stringify(dict));
   });
 });
 
