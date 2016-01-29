@@ -15,7 +15,7 @@
     text-align: center;
   }
 
-  .bw-config, .color-config, .language-config, .offset-config {
+  .bw-config, .color-config, .language-config, .offset-config, .align-config {
     display: none;
   }
 
@@ -116,6 +116,21 @@
       </div>
     </div>
 
+    <div class='item-container align-config'>
+      <div class='item-container-header'>Text alignment</div>
+      <div class='item-container-content'>
+        <label class='item'>
+          Alignment
+          <select id='alignment_choice' class='item-select'>
+            <option value="1">Left</option>
+            <option value="2" selected>Center</option>
+            <option value="3">Right</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+
 
     <div class='item-container'>
       <div class='button-container'>
@@ -132,6 +147,7 @@
     var boldColorPicker = document.getElementById('bold_color_picker');
     var languageChoice = document.getElementById('language_choice');
     var offsetChoice = document.getElementById('offset_choice');
+    var alignmentChoice = document.getElementById('alignment_choice');
 
  
     var options = {
@@ -140,7 +156,8 @@
       'regular_color': regularColorPicker.value,
       'bold_color': boldColorPicker.value,
       'language': languageChoice.value,
-      'offset': offsetChoice.value
+      'offset': offsetChoice.value,
+      'alignment': alignmentChoice.value
     };
 
     // Save for next launch
@@ -150,6 +167,7 @@
     localStorage['bold_color'] = options['bold_color'];
     localStorage['language'] = options['language'];
     localStorage['offset'] = options['offset'];
+    localStorage['alignment'] = options['alignment'];
 
     console.log('Got options: ' + JSON.stringify(options));
     return options;
@@ -183,6 +201,7 @@
     var boldColorPicker = document.getElementById('bold_color_picker');
     var languageChoice = document.getElementById('language_choice');
     var offsetChoice = document.getElementById('offset_choice');
+    var alignmentChoice = document.getElementById('alignment_choice');
     
     // Load any previously saved configuration, if available
     if(localStorage['inverse_colors']) inverseColorCheckbox.checked = JSON.parse(localStorage['inverse_colors']);
@@ -191,7 +210,7 @@
     if(localStorage['bold_color']) boldColorPicker.value = localStorage['bold_color'];
     if(localStorage['language']) languageChoice.value = localStorage['language'];
     if(localStorage['offset']) offsetChoice.value = localStorage['offset'];
-
+    if(localStorage['alignment']) alignmentChoice.value = localStorage['alignment'];
 
     var selected_configs = [];
 
@@ -206,13 +225,14 @@
     }
 
     var version = getQueryParam("v");
-    if (version > 0) {
-      if (version >= 33) {
-        Array.prototype.push.apply(selected_configs, document.getElementsByClassName("language-config"));        
-      }
-      if (version >= 34) {
-        Array.prototype.push.apply(selected_configs, document.getElementsByClassName("offset-config"));        
-      }
+    if (version >= 33) {
+      Array.prototype.push.apply(selected_configs, document.getElementsByClassName("language-config"));        
+    }
+    if (version >= 34) {
+      Array.prototype.push.apply(selected_configs, document.getElementsByClassName("offset-config"));        
+    }
+    if (version >= 35) {
+      Array.prototype.push.apply(selected_configs, document.getElementsByClassName("align-config"));        
     }
 
     for (var i = 0; i < selected_configs.length; i++) {

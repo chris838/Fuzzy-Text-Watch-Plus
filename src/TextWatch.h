@@ -8,6 +8,7 @@
 #define KEY_BOLD_TEXT 3
 #define KEY_LANGUAGE 4
 #define KEY_OFFSET 5
+#define KEY_ALIGNMENT 6
 
 #ifdef PBL_PLATFORM_CHALK
   // Pebble round screen resolution

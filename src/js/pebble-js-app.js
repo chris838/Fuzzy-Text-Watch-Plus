@@ -43,6 +43,10 @@ Pebble.addEventListener('webviewclosed', function(e) {
   var offset = configData['offset'];
   if (offset !== undefined) dict['KEY_OFFSET'] = parseInt(offset);
 
+  // Alignment
+  var alignment = configData['alignment'];
+  if (alignment !== undefined) dict['KEY_ALIGNMENT'] = parseInt(alignment);
+
   // Send to watchapp
   Pebble.sendAppMessage(dict, function() {
     console.log('Send successful: ' + JSON.stringify(dict));

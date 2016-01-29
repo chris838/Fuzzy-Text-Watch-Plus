@@ -17,7 +17,8 @@
     "KEY_REGULAR_TEXT": 2,
     "KEY_BOLD_TEXT": 3,
     "KEY_LANGUAGE": 4,
-    "KEY_OFFSET": 5
+    "KEY_OFFSET": 5,
+    "KEY_ALIGNMENT": 6
   },
   "resources": {
     "media": [
